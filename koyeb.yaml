@@ -1,6 +1,14 @@
 services:
   - name: backend
     image: ./main
+    ports:
+      - port: 8000
+        expose: true
     scale:
       units: 1
-    start_command: "./main"
+    env:
+      - name: ENV
+        value: "production"
+    routes:
+      - path: /
+        port: 8000
