@@ -1,5 +1,7 @@
-# name: backend
-# build:
-#   builder: golang
-#   go_version: 1.20
-command: go run main.go
+name: backend  # Your application name
+
+build:
+  builder: golang  # Use the Go builder to run your app
+  go_version: 1.20  # Specify the Go version (adjust if needed)
+
+command: go run main.go  # The command to run the app (the same as in Procfile)
