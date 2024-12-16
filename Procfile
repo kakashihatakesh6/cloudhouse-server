@@ -1,1 +1,1 @@
-web: ./my-new-app
+web: ./app
