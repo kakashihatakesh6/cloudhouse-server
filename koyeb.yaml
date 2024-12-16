@@ -1,6 +1,7 @@
 services:
   - name: backend
-    image: ./main
+    type: docker
+    dockerfile: Dockerfile
     ports:
       - port: 8000
         expose: true
@@ -9,6 +10,8 @@ services:
     env:
       - name: ENV
         value: "production"
+      - name: PORT
+        value: "8000"
     routes:
       - path: /
         port: 8000

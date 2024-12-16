@@ -64,9 +64,15 @@ func main() {
 
 	r := gin.Default()
 
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Gin server is running fine!",
+		})
+	})
+
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "welcome to the Gin server!",
+			"message": "Welcome to the Gin server!",
 		})
 	})
 
@@ -155,5 +161,9 @@ func main() {
 	routes.SetupChartRoutes(api)
 	routes.SetupCovidRoutes(api)
 
-	r.Run(":8000")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8000"
+	}
+	r.Run(":" + port)
 }

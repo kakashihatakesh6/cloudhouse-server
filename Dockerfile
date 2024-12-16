@@ -22,17 +22,15 @@ FROM alpine:latest
 # Step 8: Install required dependencies (in this case, just a shell)
 RUN apk --no-cache add ca-certificates
 
-# Step 9: Set the Current Working Directory inside the container
+# Step 9: Set the Working Directory
 WORKDIR /root/
 
 # Step 10: Copy the compiled binary from the builder image
 COPY --from=builder /app/main .
+COPY --from=builder /app/.env .env
 
-# Step 11: Copy the .env file into the container
-COPY .env .env
+# Step 11: Expose port
+EXPOSE 8000
 
-# Step 11: Expose the port the app will run on
-EXPOSE 8080
-
-# Step 12: Command to run the application
+# Step 12: Run the application
 CMD ["./main"]
