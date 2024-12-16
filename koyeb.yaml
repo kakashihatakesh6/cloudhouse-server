@@ -1,18 +1,6 @@
-name: backend
-region: Frankfurt # Change this to your preferred region
-image: my-new-app:latest
-env:
-  - name: ENVIRONMENT
-    value: "production"
-cpu: 1vCPU
-memory: 512MB
-min_replicas: 1
-max_replicas: 3
-health_check:
-  path: "/"
-  port: 8000
-  protocol: HTTP
-  initial_delay: 30s
-  interval: 10s
-  timeout: 5s
-  retries: 3
+services:
+  - name: backend
+    image: ./main
+    scale:
+      units: 1
+    start_command: "./main"
