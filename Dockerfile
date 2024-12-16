@@ -17,7 +17,7 @@ COPY . .
 RUN go build -o main .
 
 # Step 7: Use a smaller base image to run the compiled Go app
-FROM alpine:latest  
+FROM alpine:latest
 
 # Step 8: Install required dependencies (in this case, just a shell)
 RUN apk --no-cache add ca-certificates
