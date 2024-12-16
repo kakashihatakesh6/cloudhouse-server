@@ -1,4 +1,4 @@
-name: my-go-app
+name: backend
 build:
   builder: golang
   go_version: 1.20
