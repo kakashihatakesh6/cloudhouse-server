@@ -1,8 +1,8 @@
 package main
 
 import (
-	"backend/config"
-	"backend/database"
+	// "backend/config"
+	// "backend/database"
 	"backend/routes"
 	"crypto/tls"
 	"fmt"
@@ -33,7 +33,6 @@ func CORSMiddleware() gin.HandlerFunc {
 	}
 }
 
-
 func main() {
 
 	envFile := ".env"
@@ -53,15 +52,15 @@ func main() {
 		gin.SetMode(gin.DebugMode)
 	}
 
-	config.LoadConfig()
+	// config.LoadConfig()
 
-	database.ConnectToPostgres(
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_PORT"),
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_NAME"),
-	)
+	// database.ConnectToPostgres(
+	// 	os.Getenv("DB_HOST"),
+	// 	os.Getenv("DB_PORT"),
+	// 	os.Getenv("DB_USER"),
+	// 	os.Getenv("DB_PASSWORD"),
+	// 	os.Getenv("DB_NAME"),
+	// )
 
 	r := gin.Default()
 
@@ -70,65 +69,6 @@ func main() {
 			"message": "welcome to the Gin server!",
 		})
 	})
-
-	// Route
-	// r.GET("/api/data", func(c *gin.Context) {
-
-	// 	// Connect to ClickHouse
-	// 	// conn, err := clickhouse.Open(&clickhouse.Config{
-	// 	// 	Addr: []string{"tcp://localhost:9000"},
-	// 	// })
-	// 	// if err != nil {
-	// 	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to ClickHouse"})
-	// 	// 	return
-	// 	// }
-	// 	// defer conn.Close()
-
-	// 	// Query Parameters
-	// 	startDate := c.Query("start_date")
-	// 	endDate := c.Query("end_date")
-	// 	country := c.Query("country")
-	// 	metric := c.Query("metric")
-
-	// 	// Construct Query
-	// 	query := `
-	//         SELECT time, country, ` + metric + `
-	//         FROM sample_data
-	//         WHERE time >= toDateTime('` + startDate + `')
-	//           AND time <= toDateTime('` + endDate + `')`
-
-	// 	if country != "" {
-	// 		query += " AND country = '" + country + "'"
-	// 	}
-
-	// 	query += " ORDER BY time"
-
-	// 	// Execute Query
-	// 	rows, err := conn.Query(nil, query)
-	// 	if err != nil {
-	// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to execute query"})
-	// 		return
-	// 	}
-
-	// 	var data []map[string]interface{}
-	// 	for rows.Next() {
-	// 		var time string
-	// 		var country string
-	// 		var value float64
-	// 		err := rows.Scan(&time, &country, &value)
-	// 		if err != nil {
-	// 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to scan row"})
-	// 			return
-	// 		}
-	// 		data = append(data, map[string]interface{}{
-	// 			"time":    time,
-	// 			"country": country,
-	// 			"value":   value,
-	// 		})
-	// 	}
-
-	// 	c.JSON(http.StatusOK, data)
-	// })
 
 	conn := clickhouse.OpenDB(&clickhouse.Options{
 		Addr:     []string{"kow2h8xlj8.ap-south-1.aws.clickhouse.cloud:9440"}, // 9440 is a secure native TCP port
@@ -159,7 +99,7 @@ func main() {
 	`
 
 	rowsAffected, err := conn.Exec(insertData, 1, "John Doe")
-	
+
 	if err != nil {
 		log.Fatalf("An error inserting data: %s", err)
 	}
@@ -210,7 +150,7 @@ func main() {
 	// }
 
 	r.Use(CORSMiddleware())
-	
+
 	api := r.Group("/api")
 	routes.SetupChartRoutes(api)
 	routes.SetupCovidRoutes(api)
