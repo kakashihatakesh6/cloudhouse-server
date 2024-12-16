@@ -2,4 +2,4 @@ name: backend
 build:
   builder: golang
   go_version: 1.20
-command: go run ./api/main.go
+command: go run main.go
