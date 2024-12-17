@@ -11,5 +11,6 @@ func SetupCovidRoutes(r *gin.RouterGroup) {
 
 	{
 		covid.GET("/getdata", handlers.FetchDataFromClickHouse)
+		covid.GET("/getfiltered/:country/:metric", handlers.GetFilteredCovidData)
 	}
 }
