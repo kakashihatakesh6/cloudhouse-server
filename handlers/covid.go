@@ -52,7 +52,7 @@ func FetchDataFromClickHouse(c *gin.Context) {
 	log.Println("Connected to ClickHouse!")
 
 	// Query the data from ClickHouse table
-	query := `SELECT id, time, country, metric, value FROM chart_data.covid_data`
+	query := `SELECT id, time, country, metric, value FROM chart_data.mock_data`
 	rows, err := conn.Query(query)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
